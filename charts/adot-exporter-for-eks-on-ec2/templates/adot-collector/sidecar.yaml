@@ -3,26 +3,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.adotCollector.sidecar.name }}
+  name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
-    name: {{ .Values.adotCollector.sidecar.name }}
-    {{- include "adotCollector.daemonSet.labels" . | indent 4 }}
+    name: {{ .Release.Name }}
+    {{- include "adotCollector.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.adotCollector.sidecar.replicas }}
   selector:
     matchLabels:
-      name: {{ .Values.adotCollector.sidecar.name }}
+      name: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        name: {{ .Values.adotCollector.sidecar.name }}
-        {{- include "adotCollector.daemonSet.labels" . | indent 8 }}
+        name: {{ .Release.Name }}
+        {{- include "adotCollector.labels" . | indent 8 }}
     spec:
       containers:
-        - name: "{{ .Values.adotCollector.sidecar.image.name }}"
-          image: "{{ .Values.adotCollector.sidecar.image.repository }}:{{ .Values.adotCollector.sidecar.image.tag }}"
-          imagePullPolicy: {{ .Values.adotCollector.sidecar.image.pullPolicy }}
+        - name: "{{ .Values.adotCollector.image.name }}"
+          image: "{{ .Values.adotCollector.image.repository }}:{{ .Values.adotCollector.image.tag }}"
+          imagePullPolicy: {{ .Values.adotCollector.image.pullPolicy }}
         - name: "{{ .Values.adotCollector.image.name }}"
           image: "{{ .Values.adotCollector.image.repository }}:{{ .Values.adotCollector.image.tag }}"
           env:
@@ -30,5 +30,11 @@ spec:
               value: {{ .Values.awsRegion }}
           imagePullPolicy: {{ .Values.adotCollector.image.sidecarPullPolicy }}
           resources:
-            {{- toYaml .Values.adotCollector.sidecar.resources | nindent 12 }}
-{{- end }}
+            limits:
+              cpu: "256m"
+              memory: "512Mi"
+            requests:
+              cpu: "32m"
+              memory: "24Mi"
+                  {{- toYaml .Values.adotCollector.sidecar.resources | nindent 12 }}
+      {{- end }}
