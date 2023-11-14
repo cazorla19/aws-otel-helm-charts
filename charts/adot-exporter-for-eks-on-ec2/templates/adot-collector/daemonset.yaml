@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: {{ .Values.adotCollector.daemonSet.daemonSetName }}
-  namespace: {{ .Values.adotCollector.daemonSet.namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "adotCollector.daemonSet.labels" . | indent 4 }}
 spec:

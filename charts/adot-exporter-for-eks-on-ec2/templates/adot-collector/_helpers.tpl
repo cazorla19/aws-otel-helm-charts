@@ -68,15 +68,15 @@ Create the name of the service account to use
 {{/*
 Allow the release namespace to be overridden for multi-namespace deployments in combined charts.
 */}}
-{{- define "adotCollector.daemonSet.namespace" -}}
+{{- define "Release.Namespace" -}}
   {{- if .Values.global -}}
-    {{- if .Values.global.namespaceOverride -}}
-      {{- .Values.global.namespaceOverride -}}
+    {{- if .Values.namespaceOverride -}}
+      {{- .Values.namespaceOverride -}}
     {{- else -}}
-      {{- .Values.adotCollector.daemonSet.namespace -}}
+      {{- .Release.Namespace -}}
     {{- end -}}
   {{- else -}}
-    {{- .Values.adotCollector.daemonSet.namespace -}}
+    {{- .Release.Namespace -}}
   {{- end -}}
 {{- end -}}
 
@@ -84,14 +84,14 @@ Allow the release namespace to be overridden for multi-namespace deployments in 
 {{/*
 Allow the release namespace to be overridden for multi-namespace deployments in combined charts.
 */}}
-{{- define "adotCollector.sidecar.namespace" -}}
+{{- define "Release.Namespace" -}}
   {{- if .Values.global -}}
-    {{- if .Values.global.namespaceOverride -}}
-      {{- .Values.global.namespaceOverride -}}
+    {{- if .Values.namespaceOverride -}}
+      {{- .Values.namespaceOverride -}}
     {{- else -}}
-      {{- .Values.adotCollector.sidecar.namespace -}}
+      {{- .Release.Namespace -}}
     {{- end -}}
   {{- else -}}
-    {{- .Values.adotCollector.sidecar.namespace -}}
+    {{- .Release.Namespace -}}
   {{- end -}}
 {{- end -}}

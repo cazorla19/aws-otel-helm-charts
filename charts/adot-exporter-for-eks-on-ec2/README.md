@@ -77,6 +77,12 @@ $ helm repo add [REPO_NAME] https://aws-observability.github.io/aws-otel-helm-ch
 $ helm search repo [REPO_NAME] # Run this command in order to see the charts.
 ```
 
+## Install Chart
+
+```console
+$ helm install [RELEASE_NAME] [REPO_NAME]/adot-exporter-for-eks-on-ec2 -n [NAMESPACE_NAME] --create-namespace
+```
+
 ## Configuration
 To see all configurable options with detailed comments:
 
@@ -108,13 +114,13 @@ The following command uninstalls the chart.
 This will remove all the Kubernetes components associated with the chart and deletes the release.
 
 ```console
-$ helm uninstall [RELEASE_NAME]
+$ helm uninstall [RELEASE_NAME] -n [NAMESPACE_NAME]
 ```
 
 ## Upgrade Chart
 
 ```console
-$ helm upgrade [RELEASE_NAME] [REPO_NAME]/adot-exporter-for-eks-on-ec2
+$ helm upgrade [RELEASE_NAME] [REPO_NAME]/adot-exporter-for-eks-on-ec2 -n [NAMESPACE_NAME]
 ```
 
 ## Contributing

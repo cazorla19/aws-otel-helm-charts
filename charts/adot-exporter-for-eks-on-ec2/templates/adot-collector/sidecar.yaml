@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.adotCollector.sidecar.name }}
-  namespace: {{ .Values.adotCollector.sidecar.namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     name: {{ .Values.adotCollector.sidecar.name }}
     {{- include "adotCollector.daemonSet.labels" . | indent 4 }}

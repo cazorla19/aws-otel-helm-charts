@@ -9,7 +9,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: {{ .Values.adotCollector.daemonSet.serviceAccount.name }}
-  namespace: {{ include "adotCollector.daemonSet.namespace" . }}
+  namespace: {{ include "Release.Namespace" . }}
 roleRef:
   kind: ClusterRole
   name: {{ .Values.adotCollector.daemonSet.clusterRoleName }}
