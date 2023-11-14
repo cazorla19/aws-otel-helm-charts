@@ -8,10 +8,12 @@ clusterName: ""
 additionalLabels: {}
   # app: adot
 
+envFrom: []
+
 serviceAccount:
   create: true
+  name: "adot-collector-sa"
   annotations: {}
-  name: ""
 
 image:
   name: "aws-otel-collector"
@@ -24,10 +26,6 @@ image:
 adotCollector:
   daemonSet:
     enabled: true
-    serviceAccount:
-      create: true
-      name: "adot-collector-sa"
-      annotations: {}
     clusterRoleName: "adot-collector-role"
     clusterRoleBindingName: "adot-collector-role-binding"
     configMap:
@@ -36,9 +34,6 @@ adotCollector:
       component: "adot-conf"
     env: {}
     resources: {}
-    tolerations: []
-    volumes: {}
-    volumeMounts: {}
     extensions:
       healthCheck: ""
       sigv4auth:

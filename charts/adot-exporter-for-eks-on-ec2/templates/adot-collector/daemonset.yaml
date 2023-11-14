@@ -22,8 +22,12 @@ spec:
     spec:
       containers:
         - name: adot-collector
-          image: "{{ .Values.adotCollector.image.repository }}:{{ .Values.adotCollector.image.tag }}"
-          imagePullPolicy: {{ .Values.adotCollector.image.daemonSetPullPolicy }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.daemonSetPullPolicy }}
+          {{- if .Values.envFrom }}
+          envFrom:
+            {{- toYaml .Values.envFrom | nindent 12 }}
+          {{- end }}
           env:
             {{- toYaml .Values.adotCollector.daemonSet.env | nindent 12}}
             - name: "K8S_NODE_NAME"
@@ -104,7 +108,7 @@ spec:
         - name: "devdisk"
           hostPath:
             path: "/dev/disk/"
-      serviceAccountName: {{ .Values.adotCollector.daemonSet.serviceAccount.name  }}
+      serviceAccountName: {{ .Values.serviceAccount.name  }}
       tolerations:
         {{- toYaml .Values.adotCollector.daemonSet.tolerations | nindent 8 }}
 {{- end }}
